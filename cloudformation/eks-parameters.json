@@ -1,0 +1,14 @@
+[
+    {
+        "ParameterKey": "EnvironmentName",
+        "ParameterValue": "udacity-capstone-project"
+    },
+    {
+        "ParameterKey": "EksRole",
+        "ParameterValue": "arn:aws:iam::243572158472:role/eksClusterRole"
+    },
+    {
+        "ParameterKey": "EksNodeGroupeRole",
+        "ParameterValue": "arn:aws:iam::243572158472:role/NodeInstanceRole"
+    }
+]
