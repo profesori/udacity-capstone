@@ -8,7 +8,7 @@ pipeline {
          }
          stage('Lint HTML') {
               steps {
-                  sh 'tidy -q -e *.html'
+                  sh 'tidy -q -e app/*.html'
               }
          }
          stage('Security Scan') {
@@ -29,13 +29,18 @@ pipeline {
                   }
               }
          }
-        stage('Deploy') {
+        stage('Deploying') {
               steps{
-                  echo 'Deploying to AWS with Kubernetes'
-                  withAWS(credentials: 'aws-rudi', region: 'us-west-2') {
-                      sh "aws eks --region us-west-2 update-kubeconfig --name EksCluster"
-                      sh "kubectl config use-context arn:aws:eks:us-west-2:243572158472:cluster/EksCluster"
-                      sh "kubectl apply -f deploy-k8.yaml"
+                  echo 'Deploying to AWS'
+                  withAWS(credentials: 'aws', region: 'us-west-2') {
+                      sh "aws eks --region us-west-2 update-kubeconfig --name capstonecluster"
+                      sh "kubectl config use-context arn:aws:eks:us-west-2:988212813982:cluster/capstonecluster"
+                      sh "kubectl set image deployments/capstone-project-app capstone-project-app=thoma/capstone-project-app:latest"
+                      sh "kubectl apply -f deploy.yml"
+                      sh "kubectl get nodes"
+                      sh "kubectl get deployment"
+                      sh "kubectl get pod -o wide"
+                      sh "kubectl get service/capstone-project-app"
                   }
               }
         }
