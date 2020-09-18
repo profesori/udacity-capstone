@@ -22,7 +22,7 @@ spec:
         app: capstone-project-app
     spec:
       containers:
-        - image: thoma/capstone-project-app
+        - image: thomarudi/capstone-project-app
           imagePullPolicy: Always
           name: capstone-project-app
           ports:
